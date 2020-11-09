@@ -1,0 +1,23 @@
+{
+  "name": "landofcoder/module-gift-sale-rule-graphql",
+  "description": "Magento 2 Free Gifts - Gift Sale Rule GraphQl Extension",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Lanodfocder",
+      "email": "landofcoder@gmail.com",
+      "homepage": "https://landofcoder.com",
+      "role": "Extension Provider"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "Lof\\GiftSaleRuleGraphQl\\": ""
+    }
+  }
+}

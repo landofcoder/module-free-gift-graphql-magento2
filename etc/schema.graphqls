@@ -1,0 +1,88 @@
+# Landofcoder
+#
+# NOTICE OF LICENSE
+#
+# This source file is subject to the Landofcoder.com license that is
+# available through the world-wide-web at this URL:
+# https://landofcoder.com/LICENSE.txt
+#
+# DISCLAIMER
+#
+# Do not edit or add to this file if you wish to upgrade this extension to newer
+# version in the future.
+#
+# @category    Landofcoder
+# @package     Lof_GiftSaleRuleGraphQl
+# @copyright   Copyright (c) Landofcoder (https://landofcoder.com/)
+# @license     https://landofcoder.com/LICENSE.txt
+
+type Query {
+    lofFreeGiftsByQuote(
+        cart_id: Int! @doc(description: "Current Cart id")
+    ):[Rule] @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\GiftByQuote") @doc(description: "Get free gift list by quote id")
+}
+
+type Mutation {
+    lofFreeGiftsDeleteByQuoteItem (
+        cart_id: String! @doc(description: "Masked Cart id")
+        item_id: Int! @doc(description: "Quote item id")
+    ): Boolean @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\DeleteByQuoteItem") @doc(description:"Delete gift by quote id and quote item id")
+    lofFreeGiftsAddGift (
+        input: AddGiftInput!
+    ): AddedGiftOutput @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\AddGift") @doc(description:"Add gift to quote by quote id, rule id and gift id")
+}
+
+type Rule {
+    rule_id: String @doc(description: "Free gift rule id")
+    code: String @doc(description: "Free gift rule code")
+    label: String @doc(description: "Free gift rule label")
+    number_offered_product: Int @doc(description: "Maximum number of allowed gifts")
+    quote_items: [QuoteItem]  @doc(description: "Current Quote Items list")
+    product_items: [Gift] @doc(description: "Free gift list")
+    notice: String @doc(description: "Free gift rule notice")
+    rest_number: Int @doc(description: "Rest Number of gifts off current quote")
+}
+
+type Gift {
+    id: Int @doc(description: "Free gift id")
+    name: String @doc(description: "Free gift name")
+    gift_price: String @doc(description: "Free gift price")
+    free_ship: Int @doc(description: "Whether free gift has free shipping")
+    added: Boolean @doc(description: "Whether free gift is added to current quote")
+    configurable: Boolean @doc(description: "Whether free gift is a configurable product")
+    required_option: Boolean @doc(description: "Whether free gift requires custom option")
+    final_price:String @doc(description: "Free gift actual price")
+    image: String @doc(description: "Free gift image URL")
+}
+
+type QuoteItem {
+    product_id: String @doc(description: "Quote item product id")
+    qty: Float @doc(description: "Quote item qty")
+}
+
+type AddedGiftOutput {
+    status: String @doc(description: "Added gift item status")
+    message: String @doc(description: "Added gift item message")
+    gift_rule_id: String @doc(description: "Added gift item rule id")
+    quote_id: String @doc(description: "Added gift item quote id")
+    quote_item_id: String @doc(description: "Added gift item quote item id")
+    product_gift_id: String @doc(description: "Added gift item product gift id")
+}
+
+input AddGiftInput {
+    cart_id: String! @doc(description: "Masked Cart id")
+    gift_rule_id: Int! @doc(description: "Gift Rule id")
+    gift_rule_code: String! @doc(description: "Gift rule code")
+    products: [GiftProduct] @doc(description: "Gift products to add to cart")
+    
+}
+input GiftProduct {
+    product_id: String! @doc(description: "Gift Product id")
+    qty: Float! @doc(description: "Add Gift Product qty")
+    uenc: String @doc(description: "Add Gift Product uenc params")
+    configurable_options: [ConfigurableOptions] @doc(description: "Gift Configurable Options")
+}
+input ConfigurableOptions {
+    option_id: Int! @doc(description: "Gift Configurable Option Id"),
+    option_value: Int! @doc(description: "Gift Configurable Option Value"),
+}
