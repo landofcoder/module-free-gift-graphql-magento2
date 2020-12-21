@@ -20,7 +20,7 @@ class GiftByQuote extends AbstractGiftQuery implements ResolverInterface
     {
         $this->_quoteFlag = 1;
         $this->validateArgs($args);
-        
-        return $this->_productGift->getGiftsByQuoteId($this->_quoteFlag);
+
+        return $this->_productGift->getGiftsByQuoteId($args['cart_id']);
     }
 }

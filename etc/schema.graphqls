@@ -27,10 +27,12 @@ type Mutation {
         cart_id: String! @doc(description: "Masked Cart id")
         item_id: Int! @doc(description: "Quote item id")
     ): Boolean @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\DeleteByQuoteItem") @doc(description:"Delete gift by quote id and quote item id")
+
     lofFreeGiftsAddGift (
         input: AddGiftInput!
     ): AddedGiftOutput @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\AddGift") @doc(description:"Add gift to quote by quote id, rule id and gift id")
 }
+
 
 type Rule {
     rule_id: String @doc(description: "Free gift rule id")
@@ -38,7 +40,8 @@ type Rule {
     label: String @doc(description: "Free gift rule label")
     number_offered_product: Int @doc(description: "Maximum number of allowed gifts")
     quote_items: [QuoteItem]  @doc(description: "Current Quote Items list")
-    product_items: [Gift] @doc(description: "Free gift list")
+    gift_items: [Gift] @doc(description: "Free Gift list")
+    product_items: [String] @doc(description: "Products list")
     notice: String @doc(description: "Free gift rule notice")
     rest_number: Int @doc(description: "Rest Number of gifts off current quote")
 }
@@ -74,7 +77,7 @@ input AddGiftInput {
     gift_rule_id: Int! @doc(description: "Gift Rule id")
     gift_rule_code: String! @doc(description: "Gift rule code")
     products: [GiftProduct] @doc(description: "Gift products to add to cart")
-    
+
 }
 input GiftProduct {
     product_id: String! @doc(description: "Gift Product id")
