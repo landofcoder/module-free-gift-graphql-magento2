@@ -20,7 +20,7 @@
 ### Type 1: Zip file
 
  - Unzip the zip file in `app/code/Lof`
- - Enable the module by running `php bin/magento module:enable Lof_PromotionBarGraphQl
+ - Enable the module by running `php bin/magento module:enable Lof_GiftSaleRuleGraphQl
  - Apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
@@ -31,8 +31,8 @@
     - public repository `packagist.org`
     - public github repository as vcs
  - Add the composer repository to the configuration by running `composer config repositories.repo.magento.com composer https://repo.magento.com/`
- - Install the module composer by running `composer require landofcoder/module-promotion-bar-graph-ql`
- - enable the module by running `php bin/magento module:enable Lof_PromotionBarGraphQl`
+ - Install the module composer by running `composer require landofcoder/module-free-gift-magento2`
+ - enable the module by running `php bin/magento module:enable Lof_GiftSaleRuleGraphQl`
  - apply database updates by running `php bin/magento setup:upgrade`\*
  - Flush the cache by running `php bin/magento cache:flush`
 
