@@ -1,6 +1,6 @@
 # Magento 2 Free Gifts - Sales Gift Rule GraphQL / PWA (FREE)
 
-    ``landofcoder/module-promotion-bar-graph-ql``
+    ``landofcoder/module-free-gift-graphql-magento2``
 
  - [Main Functionalities](#markdown-header-main-functionalities)
  - [Installation](#markdown-header-installation)
