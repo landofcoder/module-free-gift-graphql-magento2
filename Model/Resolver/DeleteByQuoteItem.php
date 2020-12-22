@@ -23,13 +23,13 @@ declare(strict_types=1);
 
 namespace Lof\GiftSaleRuleGraphQl\Model\Resolver;
 
+use Lof\GiftSaleRuleGraphQl\Model\Data\MaskedCart;
+use Lof\GiftSalesRule\Api\ProductGiftInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Lof\GiftSaleRuleGraphQl\Model\Data\MaskedCart;
-use Lof\GiftSalesRule\Api\ProductGiftInterface;
-use Magento\Checkout\Model\Session;
+
 /**
  * Class DeleteByQuoteItem
  * @package Lof\GiftSaleRuleGraphQl\Model\Resolver
@@ -53,12 +53,10 @@ class DeleteByQuoteItem implements ResolverInterface
      */
     public function __construct(
         ProductGiftInterface $productGift,
-        MaskedCart $maskedCart,
-        Session $session
+        MaskedCart $maskedCart
     ) {
         $this->_productGift = $productGift;
         $this->_maskedCart = $maskedCart;
-        $this->session = $session;
     }
 
     /**

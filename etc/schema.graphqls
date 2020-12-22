@@ -30,7 +30,7 @@ type Mutation {
 
     lofFreeGiftsAddGift (
         input: AddGiftInput!
-    ): AddedGiftOutput @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\AddGift") @doc(description:"Add gift to quote by quote id, rule id and gift id")
+    ): Boolean @resolver(class: "\\Lof\\GiftSaleRuleGraphQl\\Model\\Resolver\\AddGift") @doc(description:"Add gift to quote by quote id, rule id and gift id")
 }
 
 
@@ -80,7 +80,7 @@ input AddGiftInput {
 
 }
 input GiftProduct {
-    product_id: String! @doc(description: "Gift Product id")
+    id: String! @doc(description: "Gift Product id")
     qty: Float! @doc(description: "Add Gift Product qty")
     uenc: String @doc(description: "Add Gift Product uenc params")
     configurable_options: [ConfigurableOptions] @doc(description: "Gift Configurable Options")

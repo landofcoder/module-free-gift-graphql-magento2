@@ -23,15 +23,15 @@ declare(strict_types=1);
 
 namespace Lof\GiftSaleRuleGraphQl\Model\Resolver;
 
-use Magento\Framework\GraphQl\Config\Element\Field;
-use Magento\Framework\GraphQl\Exception\GraphQlInputException;
-use Magento\Framework\GraphQl\Query\ResolverInterface;
-use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Lof\GiftSaleRuleGraphQl\Model\Data\MaskedCart;
 use Lof\GiftSalesRule\Api\GiftRuleServiceInterface;
+use Magento\Framework\GraphQl\Config\Element\Field;
+use Magento\Framework\GraphQl\Exception\GraphQlInputException;
+use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
+use Magento\Framework\GraphQl\Query\ResolverInterface;
+use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
 use Magento\Quote\Api\CartRepositoryInterface;
 use Magento\Quote\Api\Data\ProductOptionInterfaceFactory;
-use Magento\Framework\GraphQl\Query\Resolver\ContextInterface;
 
 /**
  * Class AddGift
@@ -86,17 +86,9 @@ class AddGift implements ResolverInterface
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->validateArgs($args);
-        $quote = $this->quoteRepository->getActive($args['cart_id']);
-        $result = $this->_productGift->addGiftProducts($quote, $args['products'], $args['gift_rule_code'], $args['gift_rule_id']);
-
-        return [
-            'status' => $result->getStatus(),
-            'message' => $result->getMessage(),
-            'rule_id' => $result->getRuleId(),
-            'quote_id' => $result->getQuoteId(),
-            'quote_item_id' => $result->getQuoteItemId(),
-            'product_gift_id' => $result->getProductGiftId()
-        ];
+        $data = $args['input'];
+        $quote = $this->quoteRepository->getActive($data['cart_id']);
+        return $this->_productGift->addGiftProducts($quote, $data['products'], $data['gift_rule_code'], $data['gift_rule_id']);
     }
 
     /**
