@@ -27,7 +27,7 @@ use Exception;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Quote\Model\QuoteFactory;
-use Lof\GiftSaleRule\Api\ProductGiftInterface;
+use Lof\GiftSalesRule\Api\ProductGiftInterface;
 
 /**
  * Class AbstractGiftQuery
@@ -39,22 +39,22 @@ abstract class AbstractGiftQuery
      * @var ProductGiftInterface
      */
     protected $_productGift;
-    
+
     /**
      * @var ProductRepositoryInterface
      */
     protected $_productRepository;
-    
+
     /**
      * @var QuoteFactory
      */
     protected $_quoteFactory;
-    
+
     /**
      * @var int
      */
     protected $_quoteFlag;
-    
+
     /**
      * AbstractGift constructor.
      * @param ProductGiftInterface $productGift
@@ -70,7 +70,7 @@ abstract class AbstractGiftQuery
         $this->_quoteFactory = $quoteFactory;
         $this->_productRepository = $productRepository;
     }
-    
+
     /**
      * @param array $args
      *

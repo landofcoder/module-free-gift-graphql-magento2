@@ -23,12 +23,12 @@ declare(strict_types=1);
 
 namespace Lof\GiftSaleRuleGraphQl\Model\Resolver;
 
+use Lof\GiftSaleRuleGraphQl\Model\Data\MaskedCart;
+use Lof\GiftSalesRule\Api\ProductGiftInterface;
 use Magento\Framework\GraphQl\Config\Element\Field;
 use Magento\Framework\GraphQl\Exception\GraphQlInputException;
 use Magento\Framework\GraphQl\Query\ResolverInterface;
 use Magento\Framework\GraphQl\Schema\Type\ResolveInfo;
-use Lof\GiftSaleRuleGraphQl\Model\Data\MaskedCart;
-use Lof\GiftSaleRule\Api\ProductGiftInterface;
 
 /**
  * Class DeleteByQuoteItem
@@ -40,12 +40,12 @@ class DeleteByQuoteItem implements ResolverInterface
      * @var ProductGiftInterface
      */
     protected $_productGift;
-    
+
     /**
      * @var MaskedCart
      */
     protected $_maskedCart;
-    
+
     /**
      * DeleteByQuoteItem constructor.
      * @param ProductGiftInterface $productGift
@@ -58,23 +58,22 @@ class DeleteByQuoteItem implements ResolverInterface
         $this->_productGift = $productGift;
         $this->_maskedCart = $maskedCart;
     }
-    
+
     /**
      * @inheritDoc
      */
     public function resolve(Field $field, $context, ResolveInfo $info, array $value = null, array $args = null)
     {
         $this->validateArgs($args);
-        $cart = $this->_maskedCart->getCartByMaskedId((string) $args['cart_id'], $context->getUserId());
-        $result = $this->_productGift->deleteGiftByQuoteItemId($cart->getId(), $args['item_id']);
-        
+        $result = $this->_productGift->deleteGiftByQuoteItemId((int) $args['cart_id'], $args['item_id']);
+
         if (is_object($result) && $result->getStatus() === 'error') {
             throw new GraphQlInputException($result->getMessage());
         }
-        
+
         return true;
     }
-    
+
     /**
      * @param array $args
      *
@@ -85,7 +84,7 @@ class DeleteByQuoteItem implements ResolverInterface
         if (!isset($args['item_id'])) {
             throw new GraphQlInputException(__('Required parameter "item_id" is missing'));
         }
-    
+
         if (!isset($args['cart_id'])) {
             throw new GraphQlInputException(__('Required parameter "cart_id" is missing'));
         }
